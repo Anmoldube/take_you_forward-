@@ -1,0 +1,13 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+
+    static int largestElement(int[] arr, int n) {
+        // Write your code here.
+       // int[] ans = new int[1];
+        Arrays.sort(arr);
+        int ans = arr[arr.length-1];
+            return ans;
+    }
+}
