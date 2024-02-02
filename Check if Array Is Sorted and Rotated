@@ -1,0 +1,19 @@
+class Solution {
+    public boolean check(int[] arr) {
+        int counter = 0;
+        int n = arr.length;
+         for (int i = 1; i < arr.length; i++) {
+             if(arr[i-1]>arr[i]){
+                 counter++;
+             }
+         }
+         if(arr[n-1]>arr[0]){
+             counter++;
+         }
+         if(counter>1){
+             return false;
+         }
+         return true;
+          
+    }
+}
