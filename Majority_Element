@@ -1,0 +1,9 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums); //233
+        int n = nums.length; //length = 2
+        return nums[n/2];  //2/2 = 1
+    }
+}   // next example = 1112222
+    //n = 6
+    // then n/2 = 6/2 = 3 big hint: The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
