@@ -1,0 +1,33 @@
+public class longest_unique_character_substring {
+    public static void main(String[] args) {
+         String str = "mmmiitt";
+         System.out.println(longestString(str,2));
+    }
+    public static int longestString(String str, int k) {
+        int si =  0;
+        int ans = -1;
+        int unique_count = 0;
+        int[] frq =new  int[256];
+        int ei  = 0;
+        while(ei<=str.length()){
+                char ch = str.charAt(ei);
+                if(frq[ch] == 0){
+                    unique_count++;
+                }
+                frq[ch] = frq[ch] + 1;
+                while (unique_count > k) {
+                    char c = str.charAt(si);
+                    frq[c] = frq[c] - 1;
+                    if(frq[c] == 0){
+                        unique_count--;
+                    }
+                    si++;
+                }
+                if(unique_count == k){
+                    ans = Math.max(ans, ei-si+1);
+                }
+                ei++;
+        }
+        return ans;
+    }
+}
