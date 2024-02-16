@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Solution {
+    public static int[] getFloorAndCeil(int[] nums, int n, int x) {
+        int[] ans = new int[2];
+        ans[0] = searchlo(nums, x);
+        ans[1] = searchhi(nums, x);
+        return ans;
+    }
+
+    public static int searchlo(int[] nums, int target) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        int result = -1;
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (nums[mid] == target) {
+                return nums[mid];
+            } else if (target < nums[mid]) {
+                hi = mid - 1;
+            } else {
+                result = nums[mid];
+                lo = mid + 1;
+            }
+        }
+        return result;
+    }
+
+    public static int searchhi(int[] nums, int target) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        int result = -1;
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (nums[mid] == target) {
+                return nums[mid];
+            } else if (target < nums[mid]) {
+                result = nums[mid];
+                hi = mid - 1;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return result;
+    }
+}
