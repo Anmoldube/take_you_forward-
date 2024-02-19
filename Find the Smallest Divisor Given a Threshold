@@ -1,0 +1,38 @@
+class Solution {
+    public static int FindMaxElement(int[] nums){
+        int maxi = Integer.MIN_VALUE;
+
+        for(int i = 0 ;i < nums.length; i++){
+            maxi = Math.max(nums[i],maxi);
+        }
+
+        return maxi;
+    }
+
+    public static int sumOfDivisor(int[] nums,int mid){
+        int sum = 0;
+        int n = nums.length; 
+        for(int i = 0; i < n ; i++ ){
+            sum += Math.ceil((double)(nums[i]) / (double)(mid));
+        }
+
+        return sum;
+    }
+
+    //Binary Search Approach
+    public int smallestDivisor(int[] nums, int threshold) {
+        int low = 1 , high = FindMaxElement( nums );
+
+        while(low <= high){
+            int mid = (low + high)/2;
+
+            if(sumOfDivisor(nums,mid) <= threshold){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+
+        return low; 
+    }
+}
