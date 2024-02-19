@@ -1,0 +1,21 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+
+	public static int sqrtN(long n) {
+		int low = 1;
+		int high = (int) n; // Cast the long value to an int
+		while(low <= high){
+			long mid = (high + low) / 2; // Ensure the calculation is done using long
+			long val =  mid * mid;
+			if(val <= n){
+				low = (int) mid + 1; // Cast the long value to an int
+			}
+			else{
+				high = (int) mid - 1; // Cast the long value to an int
+			}
+		}
+		return high;
+	}
+}
