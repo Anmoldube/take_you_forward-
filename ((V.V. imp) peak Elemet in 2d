@@ -1,0 +1,70 @@
+// class Solution {
+//     public int[] findPeakGrid(int[][] mat) {
+//         int n = mat.length;
+//         int m = mat[0].length;
+//         int low = 0;
+//         int high = m - 1;
+//         while (low <= high) {
+//             int mid = low + (high - low) / 2;
+//             int maxRowInd = maxElement(mat, n, m, mid);
+//             int left = mid - 1 >= 0 ? mat[maxRowInd][mid - 1] : -1; // Corrected condition
+//             int right = mid + 1 < m ? mat[maxRowInd][mid + 1] : -1;
+//             if (mat[maxRowInd][mid] > left && mat[maxRowInd][mid] > right) {
+//                 return new int[]{maxRowInd, mid};
+//             } else if (mat[maxRowInd][mid] < left) {
+//                 high = mid - 1;
+//             } else {
+//                 low = mid + 1;
+//             }
+//         }
+//         return null;
+//     }
+
+//     static public int maxElement(int[][] mat, int n, int m, int col) {
+//         int maxValue = Integer.MIN_VALUE;
+//         int ind = -1;
+//         for (int i = 0; i < n; i++) {
+//             if (mat[i][col] > maxValue) {
+//                 maxValue = mat[i][col];
+//                 ind = i;
+//             }
+//         }
+//         return ind;
+//     }
+// }
+
+class Solution {
+    public int[] findPeakGrid(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int low = 0;
+        int high = m-1;
+        while(low<=high){
+            int mid = low + (high - low) / 2;
+            int maxRowInd = maxElemnt(mat,n,m,mid);
+            int left = mid-1 >= 0 ? mat[maxRowInd][mid-1] : -1;
+            int right = mid+1 < m ? mat[maxRowInd][mid+1] : -1;
+            if( mat[maxRowInd][mid] > left &&  mat[maxRowInd][mid] > right){
+                return  new int[] {maxRowInd,mid}; 
+            }
+            else if( mat[maxRowInd][mid] < left){
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+        return null;
+    }
+    static public int maxElemnt(int[][] mat, int n , int m , int col){
+        int maxValue  = Integer.MIN_VALUE;
+        int ind = -1;
+        for(int i = 0 ;i < n; i++){
+            if(mat[i][col] > maxValue){
+                maxValue = mat[i][col];
+                ind = i;
+            }
+        }
+        return ind;
+    }
+}
