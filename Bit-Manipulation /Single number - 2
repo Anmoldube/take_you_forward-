@@ -8,3 +8,17 @@ class Solution {
         return nums[nums.length-1];
     }
 }
+one more  approach 
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        // Arrays.sort(nums);
+        int once = 0;
+        int twos = 0;
+        for(int i = 0 ; i < nums.length ; i++){
+            once  = (once ^ nums[i]) & ~twos;
+            twos  = (twos ^ nums[i]) & ~once;
+        }
+        return once;
+    }
+}
