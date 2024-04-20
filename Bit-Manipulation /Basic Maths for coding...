@@ -1,0 +1,16 @@
+class reversing{
+public static void main(String[] args) {
+            int n = 779032489;
+            int count  = 0;
+            String str = "";
+            while(n>0){
+                 str = str + n%10;
+                 n  = n/10;
+                 count++;
+            }
+                 for (int i = str.length()-1; i >= 0; i--) {
+                        System.out.println(str.charAt(i));
+            }
+            System.out.println("The number count is :" + count);
+    }
+}
