@@ -1,0 +1,39 @@
+class reversing{
+public static void main(String[] args) {
+            int n = 779032489;
+            int count  = 0;
+            String str = "";
+            while(n>0){
+                 str = str + n%10;
+                 n  = n/10;
+                 count++;
+            }
+                 for (int i = str.length()-1; i >= 0; i--) {
+                        System.out.println(str.charAt(i));
+            }
+            System.out.println("The number count is :" + count);
+    }
+}
+
+
+class reversing{
+public static void main(String[] args) {
+            int n = 7789;
+            System.out.println("The log function output is this:== "+logVala(n));
+            int count  = 0;
+            String str = "";
+            while(n>0){
+                 str = str + n%10;
+                 n  = n/10;
+                 count++;
+            }
+                 for (int i = str.length()-1; i >= 0; i--) {
+                        System.out.println(str.charAt(i));
+            }
+            System.out.println("The number count is: " + count);
+    }
+    public static int logVala(int n){
+                int count = (int)Math.log10(n) + 1;
+                return count;
+    }
+}
