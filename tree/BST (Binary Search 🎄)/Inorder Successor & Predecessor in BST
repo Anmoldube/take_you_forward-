@@ -1,0 +1,84 @@
+//User function Template for Java
+
+/*Complete the function below
+Node is as follows:
+class Node{
+	int data;
+	Node left,right;
+	Node(int d){
+		data=d;
+		left=right=null;
+	}
+}
+*/
+class Solution
+{
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+	public Node inorderSuccessor(Node root,Node x)
+         {
+          //add code here.
+          Node successor = null;
+            while(root !=  null){
+                if(x.data >=  root.data){
+                    root = root.right;
+                }
+                else {
+                    successor = root;
+                    root = root.left;
+                }
+            }          
+               return successor;
+         }
+}
+
+
+
+
+
+
+(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((
+  static int scess = 0; // 
+    static int pred = 0;
+//Function to check whether a Binary Tree is BST or not.
+public static void findPreSuc(Node root, int key) {
+    // code here.
+
+    /* There are two static nodes defined above pre(representing predecessor) and suc(representing successor) as follows:
+       static Node pre=null,suc=null
+       You need to update these both.
+       And the data inside these classes will be printed automatically by the driver code. 
+    */
+
+    System.out.print(predecessor(root, key) +" "+ successor(root, key));
+}
+
+public static int successor(Node root, int key) {
+    int scess = Integer.MAX_VALUE; // Initialize with maximum value
+    while (root != null) {
+        if (key >= root.data) {
+            root = root.right;
+        } else {
+            scess = root.data;
+            root = root.left;
+        }
+    }
+    return scess;
+}
+
+public static int predecessor(Node root, int key) {
+    int pre = Integer.MIN_VALUE; // Initialize with minimum value
+    while (root != null) {
+        if (key <= root.data) {
+            root = root.left;
+        } else {
+            pred = root.data;
+            root = root.right;
+        }
+    }
+    return pred;
+  }
+}
+
+
+
+
