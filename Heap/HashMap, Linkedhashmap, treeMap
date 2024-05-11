@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class HashMapImp {
+    public static void main(String[] args) {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("Nitesh", 80);
+        map.put("Aastha", 100);
+        map.put("omika", 80);
+        map.put("Ajay", null);
+        map.put("Riya", 90);
+        System.out.println(map);
+        map.put("omika", 50);
+        System.out.println(map);
+        System.out.println(map.get("Ajay"));
+        System.out.println(map.get("Riya"));
+        System.out.println(map.containsKey("Anmol"));
+        System.out.println(map.containsKey("Aastha"));
+        System.out.println(map.remove("Nitesh"));
+        System.out.println(map);
+
+        TreeMap<String, Integer> map1 = new TreeMap<>();
+        map1.put("Nitesh", 80);
+        map1.put("Aasl", 10);
+        map1.put("omika", 80);
+        map1.put("Ajay", 20);
+        map1.put("Riya", 90);
+        System.out.println(map1);
+        // map.put("omika", 50);
+        // System.out.println(map);
+
+        LinkedHashMap<String, Integer> map2 = new LinkedHashMap<>();
+        map2.put("Nitesh", 80);
+        map2.put("Aasl", 10);
+        map2.put("omika", 80);
+        map2.put("Ajay", 20);
+        map2.put("Riya", 90);
+        System.out.println(map2);
+        map2.put("omika", 8);
+        System.out.println(map2);
+
+    }
+}
