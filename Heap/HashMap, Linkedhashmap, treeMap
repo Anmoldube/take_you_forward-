@@ -40,3 +40,19 @@ public class HashMapImp {
 
     }
 }
+
+
+00000000000000000999999999999999999999999999999999
+output 
+{Nitesh=80, Riya=90, Aastha=100, omika=80, Ajay=null}
+{Nitesh=80, Riya=90, Aastha=100, omika=50, Ajay=null}
+null
+90
+false
+true
+80
+{Riya=90, Aastha=100, omika=50, Ajay=null}
+{Aasl=10, Ajay=20, Nitesh=80, Riya=90, omika=80}
+{Nitesh=80, Aasl=10, omika=80, Ajay=20, Riya=90}
+{Nitesh=80, Aasl=10, omika=8, Ajay=20, Riya=90}
+
