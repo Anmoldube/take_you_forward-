@@ -1,0 +1,27 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+         ArrayList<Integer> list = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        // Populate HashMap with occurrences of numbers in nums1
+        for (int num : nums1) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        
+        // Check occurrences of numbers in nums2 and add to list if present in nums1
+        for (int num : nums2) {
+            if (map.containsKey(num) && map.get(num) > 0) {
+                list.add(num);
+                map.put(num, map.get(num) - 1);
+            }
+        }
+        
+        // Convert ArrayList to array
+        int[] ans = new int[list.size()];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = list.get(i);
+        }
+        
+        return ans;
+    }
+}
