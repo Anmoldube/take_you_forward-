@@ -1,0 +1,7 @@
+class Solution{
+    public static int kthSmallest(int[] nums, int l, int r, int k) 
+    { 
+        Arrays.sort (nums);
+        return nums[k-1];
+    }
+}
