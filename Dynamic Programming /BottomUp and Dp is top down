@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class DynamicProgramming {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+       // int[] dp =new int[n+1];
+       // System.out.println(fiboDp(n, dp));
+         System.out.println(fiboBU(n));
+       // System.out.println(fibo(n));
+    }
+    public  static  int fibo(int n){
+        if(n == 0 || n == 1){
+        return n;
+        }
+        int f = fibo(n-1);
+        int f2 = fibo(n-2);
+        return f+f2;
+    }
+    public static int fiboDp(int n,int[] dp){
+        if(n == 0 || n == 1){
+            return n;
+        }
+        if(dp[n] != 0){
+            return dp[n];
+        }
+        int f = fibo(n-1);
+        int f2 = fibo(n-2);
+        dp[n]  = f+f2;
+        return f+f2;
+    }
+    public static int fiboBU(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+    
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+    
+        for (int idx = 2; idx <= n; idx++) {
+            dp[idx] = dp[idx - 1] + dp[idx - 2];
+        }
+        return dp[n];
+    }
+    
+}
