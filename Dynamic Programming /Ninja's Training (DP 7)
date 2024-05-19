@@ -1,0 +1,26 @@
+class Solution {
+    int max = 0;
+    public int maximumPoints(int points[][], int n) {
+        int[][] dp = new int[n][4];
+        for(int[] row :  dp){
+            Arrays.fill(row, -1);
+        }
+        return solve(0,-1,points,dp,n);
+    }
+
+    public int solve(int i, int prev, int points[][], int[][] dp, int n) {
+        if(i == n) return 0;
+        if(dp[i][prev+1] != -1){
+            return dp[i][prev+1];
+        }
+        int maxs =0;
+        for(int j = 0;j < 3; j++){
+            if(prev != j){
+        int crr  = points[i][j] + solve(i+1,j,points,dp,n);
+        maxs = Math.max(maxs, crr);
+        }
+    }
+        dp[i][prev+1]=maxs;
+            return dp[i][prev+1];
+    }
+}
