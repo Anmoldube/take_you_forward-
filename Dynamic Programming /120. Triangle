@@ -1,0 +1,17 @@
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int[][]val=new int[triangle.size()][triangle.size()];
+        for(int[]temp:val)
+        Arrays.fill(temp,-10001);
+        return helper(0,0,triangle,val);
+    }
+    public int helper(int i, int j ,List<List<Integer>> triangle,int[][] dp){
+             if(i==triangle.size())  return 0;
+
+        if(dp[i][j]!=-10001)  return dp[i][j];
+        int d =  triangle.get(i).get(j) + helper(i+1,j,triangle,dp);
+        int dg = triangle.get(i).get(j) + helper(i+1,j+1,triangle,dp);
+        return dp[i][j] = Math.min(d,dg);
+ 
+    }
+}
