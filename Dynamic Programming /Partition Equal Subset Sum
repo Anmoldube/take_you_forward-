@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canPartition(int[] n) {
+        int totsum = 0;
+        for(int i = 0 ; i < n.length; i++){
+            totsum += n[i];
+        }
+            if(totsum % 2 != 0) return false;
+            int t = totsum/2;
+            int[][] dp = new int[n.length][t+1];
+             for(int row[] : dp){
+             Arrays.fill(row, -1);
+        }
+       // return helper(n-1,t,arr,dp);
+        return helper(n.length-1,t,n,dp);
+    }
+    public boolean helper(int i, int t,int[] arr,int[][] dp){
+        if(t ==  0) return true;
+        if(i == 0) return arr[0] == t;
+        if(dp[i][t] != -1) return dp[i][t] == 0 ?  false : true;
+        boolean nottake =  helper(i-1,t,arr,dp);
+        boolean take = false;
+         if(arr[i] <= t){
+            take = helper(i-1,t-arr[i],arr,dp);
+        }
+              dp[i][t] = nottake || take ? 1 : 0;
+              return nottake || take;
+    }
+}
