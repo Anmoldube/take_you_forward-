@@ -1,0 +1,29 @@
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int cap, int wt[], int val[], int n) 
+    { 
+         // your code here 
+            int[][] dp = new int[cap+1][wt.length+1];
+            for(int row[] : dp){
+            Arrays.fill(row,-1);
+            }
+            return helper(wt,val,cap,0,dp);
+            
+    } 
+    public static int helper(int[] wt,int[] val, int cap, int i,int[][] dp){
+        if(cap == 0 ||  wt.length == i){
+            return 0;
+        }
+        int inc = 0;
+        int exc = 0;
+        if(dp[cap][i] != -1) 
+        {return dp[cap][i];}
+        if(cap >= wt[i]){
+            inc = val[i] + helper(wt,val,cap-wt[i],i+1,dp);
+        }
+        exc = helper(wt,val,cap,i+1, dp);
+        return dp[cap][i] = Math.max(inc,exc);
+    }
+}
+
