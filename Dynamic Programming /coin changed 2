@@ -1,0 +1,21 @@
+class Solution {
+    public int change(int k, int[] arr) {
+            int[][] dp = new int[k+1][arr.length+1];
+            for(int row[] : dp){
+            Arrays.fill(row, -1);
+            }
+            return helper(0,k,arr,dp);
+    }
+    public int helper(int i, int t,int[] arr, int[][]dp)  {
+        if(t == 0) return 1;
+           if( i == arr.length) return  0;
+            if(dp[t][i]!= -1) return dp[t][i];
+            int take = 0;
+            int nottake = 0;
+            nottake = helper(i+1,t,arr,dp);
+            if(t>=arr[i]){
+               take =  helper(i,t-arr[i],arr,dp);
+            }
+            return dp[t][i] = take + nottake;
+    }
+}
