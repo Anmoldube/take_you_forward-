@@ -1,0 +1,36 @@
+class Solution {
+    public int maxProfit(int cap, int[] prices) {
+        int n = prices.length;
+        int[][][] dp = new int[n][2][cap+1];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 2; j++) {
+                Arrays.fill(dp[i][j], -1);
+            }
+        }
+        return helper(0, 1, cap, prices, dp);
+    }
+    public int helper(int i, int buy, int cap, int[] prices, int[][][] dp) {
+        if (i == prices.length || cap == 0) {
+            return 0;
+        }
+        if (dp[i][buy][cap] != -1) {
+            return dp[i][buy][cap];
+        }
+
+        if (buy == 1) {
+            // Two choices: buy the stock or skip it
+            dp[i][buy][cap] = Math.max(
+                -prices[i] + helper(i + 1, 0, cap, prices, dp), // Buy the stock
+                helper(i + 1, 1, cap, prices, dp) // Skip it
+            );
+        } else {
+            // Two choices: sell the stock or skip it
+            dp[i][buy][cap] = Math.max(
+                prices[i] + helper(i + 1, 1, cap - 1, prices, dp), // Sell the stock
+                helper(i + 1, 0, cap, prices, dp) // Skip it
+            );
+        }
+
+        return dp[i][buy][cap];
+    }
+}
