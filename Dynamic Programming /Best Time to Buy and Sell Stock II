@@ -1,0 +1,28 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2]; // dp[i][0] -> max profit at day i with no stock in hand
+                                    // dp[i][1] -> max profit at day i with stock in hand
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+        return helper(0, 0, prices, dp, n);
+    }
+
+    public int helper(int i, int holding, int[] prices, int[][] dp, int n) {
+        if (i == n)
+            return 0;
+        if (dp[i][holding] != -1)
+            return dp[i][holding];
+
+        if (holding == 1) { // We have stock in hand, we can sell it or hold it
+            dp[i][holding] = Math.max(prices[i] + helper(i + 1, 0, prices, dp, n),
+             helper(i + 1, 1, prices, dp, n));
+        } else { // We don't have stock in hand, we can buy it or do nothing
+            dp[i][holding] = Math.max(-prices[i] + helper(i + 1, 1, prices, dp, n),
+             helper(i + 1, 0, prices, dp, n));
+        }
+
+        return dp[i][holding];
+    }
+}
