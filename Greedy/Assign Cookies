@@ -18,3 +18,26 @@ class Solution {
             return c;
     }
 }
+
+
+344444444213233333333333333333333333333333
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+            Arrays.sort(g);
+            Arrays.sort(s);
+            int i = 0;
+            int c = 0;
+            int j = 0;
+            while(i < g.length && j < s.length){
+                if(g[i] <= s[j]){
+                     i++;
+                     j++;
+                }
+                    j++;
+            }
+            return i;
+    }
+}
+
+
+
