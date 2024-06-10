@@ -1,0 +1,10 @@
+List<List<Integer>> al = new ArrayList<>();
+        int n = edges.length;
+        for(int i=0;i<V;i++)
+            al.add(new ArrayList<>());
+        for(int i=0;i<n;i++){
+            al.get(edges[i][0]).add(edges[i][1]);
+            al.get(edges[i][1]).add(edges[i][0]);
+        }
+        return al;
+    }
