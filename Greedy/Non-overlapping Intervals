@@ -1,0 +1,14 @@
+class Solution {
+    public int eraseOverlapIntervals(int[][] arr) {
+        Arrays.sort(arr,(a,b)->a[1] - b[1]);
+        int count = 1;
+        int cheak = arr[0][1];
+        for(int i = 1; i < arr.length; i++){
+            if(arr[i][0]>= cheak){
+                count++;
+                cheak = arr[i][1];
+            }
+        }
+            return arr.length-count;
+    }
+}
