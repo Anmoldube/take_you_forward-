@@ -1,0 +1,17 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        dfs(image, sr, sc, image[sr][sc], color);
+        return image;
+    }
+
+    void dfs(int[][] image, int r, int c, int pre, int next) {
+        if (r < 0 || r >= image.length || c < 0 || c >= image[0].length || image[r][c] != pre || image[r][c] == next) {
+            return;
+        }
+        image[r][c] = next;
+        dfs(image, r + 1, c, pre, next);
+        dfs(image, r - 1, c, pre, next);
+        dfs(image, r, c + 1, pre, next);
+        dfs(image, r, c - 1, pre, next);
+    }
+}
