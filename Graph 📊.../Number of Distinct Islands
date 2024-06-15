@@ -1,0 +1,35 @@
+class Solution {
+    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int countDistinctIslands(int[][] grid) {
+        int m=grid.length, n=grid[0].length, idx = -1;
+        Set<ArrayList<String>> set = new HashSet<>();
+        boolean[][] vis = new boolean[m][n];
+        
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j] == 1 && !vis[i][j])
+                {
+                    ArrayList<String> arr = new ArrayList<>();
+                    dfs(i, j, i, j, arr, vis, grid);
+                    set.add(arr);
+                }
+            }
+        }
+        return set.size();
+    }
+    public void dfs(int i, int j, int bi, int bj, ArrayList<String> arr, boolean[][] vis, int[][] grid)
+    {
+        vis[i][j] = true;
+        String temp = Integer.toString(i-bi) +" " + Integer.toString(j-bj);
+        arr.add(temp);
+        
+        for(int k=0; k<4; k++)
+        {
+            int nr = i+dirs[k][0], nc = j+dirs[k][1];
+            if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc] == 1 && !vis[nr][nc])
+                dfs(nr,nc,bi,bj,arr,vis,grid);
+        }
+    }
+}
