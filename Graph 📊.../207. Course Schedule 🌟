@@ -1,0 +1,44 @@
+111111111111111111111111111111
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // Create adjacency list
+        List<List<Integer>> adjList = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            adjList.add(new ArrayList<>());
+        }
+        for (int[] prerequisite : prerequisites) {
+            adjList.get(prerequisite[1]).add(prerequisite[0]);
+        }
+        
+        // Visited array to track visit status of each node
+        int[] visited = new int[numCourses];
+        
+        // Check for cycles in the graph
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] == 0) {
+                if (isCyclic(i, adjList, visited)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    private boolean isCyclic(int node, List<List<Integer>> adjList, int[] visited) {
+        if (visited[node] == 2) {
+            return true;
+        }
+        if (visited[node] == 1) {
+            return false;
+        }
+        
+        visited[node] = 2;
+        for (int neighbor : adjList.get(node)) {
+            if (isCyclic(neighbor, adjList, visited)) {
+                return true;
+            }
+        }
+        visited[node] = 1;
+        return false;
+    }
+}
