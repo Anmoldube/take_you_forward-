@@ -1,0 +1,32 @@
+class Solution {
+    class Node{
+        int node;
+        int dist;
+        int vis;
+        Node(int node,int dist, int vis){
+            this.node = node;
+            this.dist = dist;
+            this.vis = vis;
+        }
+    }
+    public int shortestPathLength(int[][] arr) {
+        int n = arr.length;
+        Queue<Node> q=  new LinkedList<>();
+        Set<Integer>[] vis = new HashSet[n]; 
+        for(int i = 0 ; i < n; i++){
+            vis[i] = new HashSet<>();
+            q.add(new Node(i,0,1 << i));
+            vis[i].add(1 << i);
+        }
+        while(!q.isEmpty()){
+            Node node  = q.poll();
+            if(node.vis == (1 << n)-1) return node.dist;
+        for(int it : arr[node.node]){
+            int mask = node.vis | (1 << it);
+            if(vis[it].add(mask))
+                        q.add(new Node(it,1+node.dist,mask));
+         }
+        }
+            return -1;
+    }
+}
