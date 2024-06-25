@@ -1,0 +1,49 @@
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        // Create adjacency list
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        for (int[] time : times) {
+            map.putIfAbsent(time[0], new ArrayList<>());
+            map.get(time[0]).add(new int[]{time[1], time[2]});
+        }
+
+        // Priority queue to get the minimum weight edge first
+        Queue<int[]> minHeap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        minHeap.add(new int[]{k, 0});
+        
+        // Set to keep track of visited nodes
+        Set<Integer> visited = new HashSet<>();
+        int ans = 0;
+
+        // Process nodes until the priority queue is empty
+        while (!minHeap.isEmpty()) {
+            int[] current = minHeap.poll();
+            int node = current[0];
+            int time = current[1];
+
+            // If this node is already visited, continue
+            if (visited.contains(node)) {
+                continue;
+            }
+
+            // Mark this node as visited
+            visited.add(node);
+            ans = time;
+
+            // If this node has no outgoing edges, continue
+            if (!map.containsKey(node)) {
+                continue;
+            }
+
+            // Add all adjacent nodes to the priority queue
+            for (int[] edge : map.get(node)) {
+                if (!visited.contains(edge[0])) {
+                    minHeap.add(new int[]{edge[0], time + edge[1]});
+                }
+            }
+        }
+
+        // If all nodes are visited, return the answer, otherwise return -1
+        return visited.size() == n ? ans : -1;
+    }
+}
