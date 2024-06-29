@@ -1,0 +1,34 @@
+class Solution {
+    class pair {
+        int node;
+        int distance;
+        pair(int node, int distance) {
+            this.node = node;
+            this.distance = distance;
+        }
+    }
+
+    static int spanningTree(int V, int E, List<List<int[]>> adj) {
+        int[] vis = new int[V];
+        PriorityQueue<pair> pq = new PriorityQueue<>((x, y) -> x.distance - y.distance);
+        pq.add(new Solution().new pair(0, 0)); // Start with the first node (node 0) and distance 0
+        int sum = 0;
+
+        while (pq.size() > 0) {
+            int wt = pq.peek().distance;
+            int node = pq.peek().node;
+            pq.remove();
+            if (vis[node] == 1) continue;
+            vis[node] = 1;
+            sum += wt;
+            for (int i = 0; i < adj.get(node).size(); i++) {
+                int adjnode = adj.get(node).get(i)[0];
+                int edw = adj.get(node).get(i)[1];
+                if (vis[adjnode] == 0) {
+                    pq.add(new Solution().new pair(adjnode, edw));
+                }
+            }
+        }
+        return sum;
+    }
+}
