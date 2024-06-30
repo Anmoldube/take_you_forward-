@@ -1,0 +1,19 @@
+class GfG {
+    int find(int A[], int X) {
+        // Implementing path compression
+        if (A[X] != X) {
+            A[X] = find(A, A[X]);
+        }
+        return A[X];
+    }
+    
+    void unionSet(int A[], int X, int Z) {
+        int parA = find(A, X);
+        int parB = find(A, Z);
+        
+        // Making one of the parents the parent of the other
+        if (parA != parB) {
+            A[parA] = parB;
+        }
+    }
+}
