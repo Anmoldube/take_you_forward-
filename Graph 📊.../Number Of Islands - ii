@@ -1,0 +1,71 @@
+Number Of Islands
+class Disjoint{
+    ArrayList<Integer>rank=new ArrayList<>();
+    ArrayList<Integer>size=new ArrayList<>();
+    ArrayList<Integer>parent=new ArrayList<>();
+    public Disjoint(int n){
+        for(int i=0;i<=n;i++){
+            rank.add(0);
+            parent.add(i);
+            size.add(0);
+        }
+    }
+
+    int find_par(int n){
+        if(parent.get(n)==n)return n;
+        int x= find_par(parent.get(n));
+        parent.set(n,x);
+        return x;
+    }
+        void find_unionBy_Size(int u,int v){
+            int p_u=find_par(u);
+            int p_v=find_par(v);
+            if(p_u==p_v)return ;
+            if(size.get(p_u)<size.get(p_v)){
+                parent.set(p_u, p_v);
+                size.set(p_v, size.get(p_v)+size.get(p_u));
+           }else{
+                parent.set(p_v, p_u);
+                size.set(p_u, size.get(p_v)+size.get(p_u));
+           }
+        }
+}
+
+class Solution {
+    
+    public List<Integer> numOfIslands(int rows, int cols, int[][] operators) {
+        //Your code here
+        int vis[][]=new int[rows][cols];
+        int c=0;
+        List<Integer>ans=new ArrayList<>();
+        Disjoint ds=new Disjoint(rows*cols);
+        for(int i=0;i<operators.length;i++){
+            int ro=operators[i][0];
+            int co=operators[i][1];
+            if(vis[ro][co]==1){
+                ans.add(c);continue;
+            }
+            vis[ro][co]=1;
+            c++;
+            int drow[]={-1,0,1,0};
+            int dcol[]={0,1,0,-1};
+            
+            for(int j=0;j<4;j++){
+                int nrow=drow[j]+ro;
+                int ncol=dcol[j]+co;
+                if(nrow>=0&&nrow<rows && ncol>=0&&ncol<cols){
+                    if(vis[nrow][ncol]==1){
+                        int node=ro*cols+co;
+                        int adjnode=nrow*cols+ncol;
+                        if(ds.find_par(node)!=ds.find_par(adjnode)){
+                            c--;
+                            ds.find_unionBy_Size(node,adjnode);
+                        }
+                    }
+                }
+            }ans.add(c);
+        }
+        return ans;
+    }
+    
+}
