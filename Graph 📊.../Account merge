@@ -1,0 +1,58 @@
+// import java.util.*;
+
+class Solution {
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, String> owner = new HashMap<>();
+        Map<String, String> parents = new HashMap<>();
+        Map<String, TreeSet<String>> unions = new HashMap<>();
+
+        // Initialize owner and parents maps
+        for (List<String> account : accounts) {
+            String ownerName = account.get(0);
+            for (int i = 1; i < account.size(); i++) {
+                String email = account.get(i);
+                parents.put(email, email);
+                owner.put(email, ownerName);
+            }
+        }
+
+        // Union find to merge accounts
+        for (List<String> account : accounts) {
+            String parent = find(parents, account.get(1));
+            for (int i = 2; i < account.size(); i++) {
+                String parent2 = find(parents, account.get(i));
+                parents.put(parent2, parent);
+            }
+        }
+
+        // Group emails by their parent
+        for (List<String> account : accounts) {
+            String parent = find(parents, account.get(1));
+            if (!unions.containsKey(parent)) {
+                unions.put(parent, new TreeSet<>());
+            }
+            Set<String> emailSet = unions.get(parent);
+            for (int i = 1; i < account.size(); i++) {
+                emailSet.add(account.get(i));
+            }
+        }
+
+        // Create the result list
+        List<List<String>> res = new ArrayList<>();
+        for (String parent : unions.keySet()) {
+            List<String> emails = new ArrayList<>(unions.get(parent));
+            emails.add(0, owner.get(parent));
+            res.add(emails);
+        }
+
+        return res;
+    }
+
+    private String find(Map<String, String> parents, String node) {
+        while (!parents.get(node).equals(node)) {
+            parents.put(node, parents.get(parents.get(node)));
+            node = parents.get(node);
+        }
+        return node;
+    }
+}
