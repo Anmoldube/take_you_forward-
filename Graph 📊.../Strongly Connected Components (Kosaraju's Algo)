@@ -1,0 +1,56 @@
+class Solution {
+    private void dfs(int node, int[] vis, ArrayList<ArrayList<Integer>> adj, Stack<Integer> st) {
+        vis[node] = 1;
+        for (Integer it : adj.get(node)) {
+            if (vis[it] == 0) {
+                dfs(it, vis, adj, st);
+            }
+        }
+        st.push(node);
+    }
+
+    private void dfs2(int node, int[] vis, ArrayList<ArrayList<Integer>> adjt) {
+        vis[node] = 1;
+        for (Integer it : adjt.get(node)) {
+            if (vis[it] == 0) {
+                dfs2(it, vis, adjt);
+            }
+        }
+    }
+
+    // Function to find number of strongly connected components in the graph.
+    public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Step 1: Perform the first DFS to populate the stack with nodes in order of their finishing times.
+        int[] vis = new int[V];
+        Stack<Integer> st = new Stack<Integer>();
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                dfs(i, vis, adj, st);
+            }
+        }
+
+        // Step 2: Create the transposed graph.
+        ArrayList<ArrayList<Integer>> adjt = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < V; i++) {
+            adjt.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < V; i++) {
+            for (Integer it : adj.get(i)) {
+                adjt.get(it).add(i);
+            }
+        }
+
+        // Step 3: Perform the second DFS based on the order defined by the stack.
+        Arrays.fill(vis, 0); // Reset the visited array for the second DFS.
+        int scc = 0;
+        while (!st.isEmpty()) {
+            int node = st.pop();
+            if (vis[node] == 0) {
+                scc++;
+                dfs2(node, vis, adjt);
+            }
+        }
+
+        return scc;
+    }
+}
