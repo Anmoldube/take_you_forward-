@@ -1,0 +1,81 @@
+class Solution {
+    private int timer = 0;
+
+    // Depth-First Search (DFS) function
+    private void dfs(int node, int parent, int[] vis, int[] tim, int[] low, ArrayList<ArrayList<Integer>> adj,
+            int[] mark) {
+        vis[node] = 1; // Mark the current node as visited
+        tim[node] = low[node] = timer; // Set discovery and low times
+        timer++; // Increment timer
+        int child = 0; // Child count for root node
+
+        for (Integer it : adj.get(node)) { // Traverse all adjacent nodes
+            if (it == parent) // Skip the parent node
+                continue;
+            if (vis[it] == 0) { // If the adjacent node is not visited
+                dfs(it, node, vis, tim, low, adj, mark); // Recursively perform DFS
+                low[node] = Math.min(low[node], low[it]); // Update low value
+
+                // Check if the node is an articulation point
+                if (low[it] >= tim[node] && parent != -1) {
+                    mark[node] = 1;
+                }
+                child++;
+            } else {
+                low[node] = Math.min(low[node], tim[it]); // Update low value if already visited
+            }
+        }
+        // Check if the root node is an articulation point
+        if (child > 1 && parent == -1) {
+            mark[node] = 1;
+        }
+    }
+
+    // Function to return articulation points of the given graph
+    public ArrayList<Integer> articulationPoints(int V, ArrayList<ArrayList<Integer>> adj) {
+        int[] vis = new int[V];
+        int[] tim = new int[V];
+        int[] low = new int[V];
+        int[] mark = new int[V];
+
+        // Perform DFS from each unvisited node
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                dfs(i, -1, vis, tim, low, adj, mark);
+            }
+        }
+
+        ArrayList<Integer> ans = new ArrayList<>();
+        // Collect all articulation points
+        for (int i = 0; i < V; i++) {
+            if (mark[i] == 1) {
+                ans.add(i);
+            }
+        }
+
+        // If no articulation point is found, return -1
+        if (ans.size() == 0) {
+            ans.add(-1);
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
