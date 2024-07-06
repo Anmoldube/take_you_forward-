@@ -1,0 +1,53 @@
+
+class MergeSort {
+    public static void main(String[] args) {
+        System.out.println("ds");
+        int[] a = {3, 5, 7, 9, 11,1, 6, 7};
+        int[] ans = mergesort(a, 0, a.length-1);
+        for (int i = 0; i < ans.length; i++) {
+            System.out.print(ans[i] + " " ) ;
+        }
+    }
+
+    static public int[] mergesort(int[] arr, int lo, int hi) {
+        if (lo == hi) {
+            int[] a = new int[1];
+            a[0] = arr[lo];
+            return a;
+        }
+        int mid = (lo + hi) / 2;
+        int[] fs = mergesort(arr, lo, mid);
+        int[] fl = mergesort(arr, mid + 1, hi);
+        return func(fs, fl);
+    }
+
+    public static int[] func(int[] a, int[] b) {
+        int length = a.length + b.length;
+        int[] merge = new int[length];
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < a.length && j < b.length) {
+            if (a[i] <= b[j]) {
+                merge[k] = a[i];
+                i++;
+                k++;
+            } else {
+                merge[k] = b[j];
+                j++;
+                k++;
+            }
+        }
+        while (i < a.length) {
+            merge[k] = a[i];
+            k++;
+            i++;
+        }
+        while (j < b.length) {
+            merge[k] = b[j];
+            j++;
+            k++;
+        }
+        return merge;
+    }
+}
