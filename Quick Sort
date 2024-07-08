@@ -1,0 +1,35 @@
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = {7, 5, 3, 1, 9, 4};
+        quicksort(arr, 0, arr.length - 1);
+        for (int idx = 0; idx < arr.length; idx++) {
+            System.out.println(arr[idx]);
+        }
+    }
+
+    public static void quicksort(int[] arr, int lo, int hi) {
+        if (lo >= hi) {
+            return;
+        }
+        int ind = partition(arr, lo, hi);
+        quicksort(arr, lo, ind - 1);
+        quicksort(arr, ind + 1, hi);
+    }
+
+    public static int partition(int[] arr, int lo, int hi) {
+        int pivot = arr[hi];
+        int ind = lo;
+        for (int i = lo; i < hi; i++) {
+            if (arr[i] <= pivot) {
+                int t = arr[i];
+                arr[i] = arr[ind];
+                arr[ind] = t;
+                ind++;
+            }
+        }
+        int t = arr[ind];
+        arr[ind] = arr[hi];
+        arr[hi] = t;
+        return ind;
+    }
+}
