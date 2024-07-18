@@ -1,0 +1,35 @@
+class Solution {
+    public int beautySum(String s) {
+        int ans = 0; 
+        for(int i = 0 ; i < s.length(); i++){
+                int[] freq = new int[26];
+                for(int j = i; j < s.length();j++){
+                    freq[s.charAt(j)-'a']++;
+                int max = getMax(freq);
+                int min = getMin(freq);
+                int Beauty  = max - min;
+                ans += Beauty;
+                }
+        }
+        return ans;
+    }
+    static int getMax(int[] freq){
+        int max = Integer.MIN_VALUE;
+        for(int i = 0;i < 26; i++){
+                if(freq[i] != 0){
+                    max = Math.max(freq[i],max);
+                }
+        }
+            return max;
+    }
+    static int getMin(int[] freq){
+        // int min = Integer.MIN_VALUE;
+         int min = Integer.MAX_VALUE;
+        for(int i = 0;i < 26; i++){
+                if(freq[i] != 0){
+                    min = Math.min(freq[i],min);
+                }
+        }
+            return min;
+    }
+}
