@@ -1,0 +1,31 @@
+class Solution {
+    public String shortestPalindrome(String s) {
+        int i = s.length();
+        while(i != 1){
+            if(IsPalindrome(s.substring(0,i))){
+                return rev(s.substring(i,s.length()))+s;
+        }
+        i--;
+        }
+        return rev(s.substring(1,s.length()))+s;
+    }
+     public String rev(String str){
+        StringBuilder sb = new StringBuilder();
+        for(int i = str.length()-1; i >= 0; i--){
+            sb.append(str.charAt(i));
+        }
+        return sb.toString();
+     }
+
+    public boolean IsPalindrome(String str){
+        int len =  str.length();
+        for(int i =0 ;i < len/2; i++){
+            char front = str.charAt(i);
+            char back =  str.charAt(len-i-1);
+            if(front != back ){
+                return false;
+            }
+        }
+        return true;
+    }
+}
