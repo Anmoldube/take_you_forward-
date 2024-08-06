@@ -1,0 +1,91 @@
+
+class Node {
+        Node[] links;
+        Node() {
+            links = new Node[2];
+        }
+        boolean containsKey(int ind) {
+            return (links[ind] != null);
+        }
+
+        Node get(int ind) {
+            return links[ind];
+        }
+        void put(int ind, Node node) {
+            links[ind] = node;
+        }
+    }
+
+    class Trie{
+        private Node root;
+        public  Trie(){
+            root = new Node();
+        }
+        public  void insert(int num){
+            Node node = root;
+            for (int i = 31; i>=0; i--) {
+                int bit = (num >> i) &1;
+                if(!node.containsKey(bit)){
+                    node.put(bit,new Node());
+                }
+                node = node.get(bit);
+            }
+        }
+
+        int findMax(int num) {
+
+            Node node = root;
+
+            int maxNum = 0;
+
+
+            for (int i = 31; i >= 0; i--) {
+
+
+                int bit = (num >> i) & 1;
+
+
+                if (node.containsKey(1 - bit)) {
+
+
+                    maxNum = maxNum | (1 << i);
+
+                    node = node.get(1 - bit);
+                } else {
+                    node = node.get(bit);
+                }
+            }
+
+            return maxNum;
+        }
+
+
+    }
+class Solution {
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        int ans[]= new int[queries.length];
+        Arrays.sort(nums);
+        int activity[][] =new int[queries.length][3];
+        for (int i = 0; i < queries.length; i++) {
+            activity[i][0]=i;
+            activity[i][1]=queries[i][0];
+            activity[i][2]=queries[i][1];
+        }
+        Arrays.sort(activity,(a,b)-> a[2]-b[2]);
+        Trie t = new Trie();
+        int i=0;
+        int k = 0;
+        for(int x[] : activity){
+            while(k<nums.length && nums[k]<=x[2]){
+                t.insert(nums[k]);
+                k++;
+            }
+            if(k!=0){
+                ans[x[0]] = t.findMax(x[1]);
+            }else{
+                ans[x[0]]=-1;
+            }
+        }
+        return  ans;
+    }
+}
