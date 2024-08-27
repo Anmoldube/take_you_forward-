@@ -1,0 +1,16 @@
+class Solution {
+    public int print2largest(int[] arr) {
+        // Code Here
+        int l =  Integer.MIN_VALUE;
+        int sc =  Integer.MIN_VALUE;
+        for(int i = 0 ;i < arr.length; i++){
+            if(arr[i] > l ){
+                sc = l;
+                l = arr[i];
+            } else if(arr[i] > sc && arr[i] != l){
+                sc = arr[i];
+            }
+        }
+        return sc;
+    }
+}
