@@ -1,0 +1,62 @@
+class Solution {
+    // Function for finding maximum and value pair
+    public static int lenOfLongSubarr(int A[], int N, int K) {
+        // int n = a.length; // size of the array.
+      HashMap<Integer, Integer> sum_map = new HashMap<>();
+        int current_sum = 0; // This will store the running prefix sum
+        int max_length = 0;  // To store the maximum length of sub-array with sum equal to K
+        
+        // Iterate over the array
+        for (int i = 0; i < N; i++) {
+            // Add the current element to the running sum
+            current_sum += A[i];
+            
+            // Case 1: Check if the sum from the start to the current index equals K
+            if (current_sum == K) {
+                max_length = i + 1; // The whole array up to i is the sub-array
+            }
+            
+            // Case 2: Check if (current_sum - K) exists in the map
+            if (sum_map.containsKey(current_sum - K)) {
+                // Calculate the length of the sub-array
+                int length = i - sum_map.get(current_sum - K);
+                max_length = Math.max(max_length, length);
+            }
+            
+            // Case 3: Store the current_sum in the map if it hasn't been stored already
+            if (!sum_map.containsKey(current_sum)) {
+                sum_map.put(current_sum, i);
+            }
+        }
+        
+        // Return the maximum length of the sub-array with sum K
+        return max_length;
+    }
+
+    
+}
+
+\
+ int left = 0, right = 0; // 2 pointers
+        long sum = a[0];
+        int maxLen = 0;
+        while (right < n) {
+            // if sum > k, reduce the subarray from left
+            // until sum becomes less or equal to k:
+            while (left <= right && sum > k) {
+                sum -= a[left];
+                left++;
+            }
+
+            // if sum = k, update the maxLen i.e. answer:
+            if (sum == k) {
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+
+            // Move forward thw right pointer:
+            right++;
+            if (right < n) sum += a[right];
+        }
+
+        return maxLen;
+    }
