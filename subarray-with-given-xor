@@ -1,0 +1,27 @@
+public class Solution {
+    public int solve(int[] a, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = a.length;
+        int xr = 0; // Current XOR
+        int count = 0; // Count of subarrays with XOR = k
+        
+        for (int i = 0; i < n; i++) {
+            xr = xr ^ a[i]; // Update current XOR
+            
+            // If the XOR itself equals k, count this subarray
+            if (xr == k) {
+                count++;
+            }
+            
+            // Find the count of subarrays that satisfy XOR condition
+            int x = xr ^ k; 
+            if (map.containsKey(x)) {
+                count += map.get(x);
+            }
+            
+            // Update the frequency of the current XOR in the map
+            map.put(xr, map.getOrDefault(xr, 0) + 1);
+        }
+        return count;
+    }
+}
