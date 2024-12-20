@@ -1,0 +1,31 @@
+class Solution {
+    // Function to find two elements in the array
+    ArrayList<Integer> findTwoElement(int a[]) {
+        int n = a.length;               // Get the length of the array
+        int repeating = -1;            // Variable to store the repeating element
+        int missing = -1;              // Variable to store the missing element
+        int[] hash = new int[n + 1];   // Create a hash array of size n+1
+
+        // Count the occurrences of each element
+        for (int i = 0; i < n; i++) {
+            hash[a[i]]++;
+        }
+
+        // Find the repeating and missing elements
+        for (int i = 1; i <= n; i++) { // Iterate from 1 to n
+            if (hash[i] == 2) {        // If count is 2, it's the repeating number
+                repeating = i;
+            } else if (hash[i] == 0) { // If count is 0, it's the missing number
+                missing = i;
+            }
+            // Break the loop early if both numbers are found
+            if (repeating != -1 && missing != -1) break;
+        }
+
+        // Add the results to the ArrayList
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(repeating);
+        ans.add(missing);
+        return ans;
+    }
+}
