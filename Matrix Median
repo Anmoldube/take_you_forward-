@@ -1,0 +1,11 @@
+public class main {
+    public static int median(int matrix[][], int m, int n) {
+        List<Integer> lst = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                lst.add(matrix[i][j]);
+            }
+        }
+        Collections.sort(lst);
+        return lst.get((m * n) / 2);
+    }
